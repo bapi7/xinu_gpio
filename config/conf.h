@@ -52,11 +52,13 @@ extern	struct	dentry	devtab[]; /* one entry per device */
 #define SPI0                24	/* type spi      */
 #define SPI1                25	/* type spi      */
 #define GPIO                26	/* type gpio     */
+#define ADC                 27	/* type adc      */
 
 /* Control block sizes */
 
 #define	Nnull	1
 #define	Ngpio	1
+#define	Nadc	1
 #define	Ntty	1
 #define	Neth	1
 #define	Nrds	1
@@ -68,7 +70,7 @@ extern	struct	dentry	devtab[]; /* one entry per device */
 #define	Nnam	1
 #define	Nspi	2
 
-#define NDEVS 27
+#define NDEVS 28
 
 
 /* Configuration and Size Constants */

@@ -206,5 +206,12 @@ struct	dentry	devtab[NDEVS] =
 	  (void *)gpioinit, (void *)ionull, (void *)ionull,
 	  (void *)ionull, (void *)gpiowrite, (void *)ioerr,
 	  (void *)ionull, (void *)ionull, (void *)ioerr,
-	  (void *)0x4804c134, (void *)ioerr, 0 }
+	  (void *)0x4804c134, (void *)ioerr, 0 },
+
+/* ADC is adc */
+	{ 27, 0, "ADC",
+	  (void *)adcinit, (void *)ionull, (void *)ionull,
+	  (void *)adcread, (void *)ionull, (void *)ioerr,
+	  (void *)ionull, (void *)ionull, (void *)ioerr,
+	  (void *)0x44e0d044, (void *)ioerr, 0 }
 };

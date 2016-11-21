@@ -561,6 +561,10 @@ extern devcall gpiowrite(struct dentry *, char *, int32);
 
 extern devcall gpioinit(struct dentry *);
 
+extern devcall adcread(struct dentry *, char *, int32);
+
+extern devcall adcinit(struct dentry *);
+
 /* in file udp.c */
 
 extern	void	udp_init(void);

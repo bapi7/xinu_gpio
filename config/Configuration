@@ -31,6 +31,13 @@ gpio:
 		-r ionull	-g ionull	-p ionull
 		-w gpiowrite	-s ioerr
 
+/* type of a gpio device */
+adc:
+        on adc
+                -i adcinit     -o ionull       -c ionull
+                -r adcread     -g ionull       -p ionull
+                -w ionull      -s ioerr
+
 /* type of a tty device */
 tty:
 	on uart
@@ -169,6 +176,7 @@ spi:
 
    GPIO is gpio on gpio csr 0x4804C134 
 
+   ADC is adc on adc csr 0x44E0D044
 %%
 
 /* Configuration and Size Constants */
