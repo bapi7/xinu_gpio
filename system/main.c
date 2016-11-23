@@ -14,12 +14,17 @@ process tempread() {
 	char * sensor_pin;
 	int32 temp_c, temp_f, voltage_reading;
 	sensor_pin = "P9_39";
-        kprintf("Starting reading sensor data \n");
+	int32 count = 20;
+	while(count > 0){
+        kprintf("Starting reading sensor data \n---------------------------------\n");
         voltage_reading = read(ADC, sensor_pin, 10);
         kprintf("Voltage value read(in millivolts): %d\n",voltage_reading);
         temp_c = (voltage_reading - 500) / 10;
         temp_f = (temp_c * 9/5) + 32;
         kprintf("Temperature in Celsius = %d\nTemperature in Fahrenheit = %d\n", temp_c, temp_f);
+		count--;
+	}
+	return OK;
 }
 
 process	main(void)
