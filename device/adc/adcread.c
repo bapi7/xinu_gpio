@@ -1,6 +1,6 @@
 #include <xinu.h>
 
-void adcinittt(){
+void adc_init(){
 	uint32 *adc_tsc_clkptr, *ctrlptr;
 
 	adc_tsc_clkptr = (uint32*)(0x44E004BC);
@@ -33,20 +33,15 @@ void adcinittt(){
 	*(uint32*)ADCSTEPCONFIG8 |= 0x07<<19 | 0b000<<2 | 0b00;
 	*(uint32*)ADCSTEPDELAY8  |= 0<<24;
 	
-	kprintf("Stepconfig 2 : %d\n", *(uint32*)ADCSTEPCONFIG2);
-	kprintf("Stepdelay 2 : %d\n", *(uint32*)ADCSTEPDELAY2);
+	kprintf("Stepconfig 1 : %d\n", *(uint32*)ADCSTEPCONFIG1);
+	kprintf("Stepdelay 1 : %d\n", *(uint32*)ADCSTEPDELAY1);
 	//updated all stepconfigs and step delays
 
 	//clear out fifo data
 	int output;
-	kprintf("FIFO Out before :  %d\n", *(uint32*)ADC_FIFO0DATA);
 	while(*((uint32*)FIFO0COUNT) & FIFO_COUNT_MASK){
 		output =  *(uint32*)ADC_FIFO0DATA & ADC_FIFO_MASK;
 	}
-	kprintf("FIFO Out after :  %d\n", *(uint32*)ADC_FIFO0DATA);
-	
-	// just suppress the warning about output not being used
-	if(output){}
 	
 	//enable the adc
 	*ctrlptr |= 0x01;
@@ -55,18 +50,15 @@ void adcinittt(){
 devcall adcread(struct dentry *devptr,
     		  char *buff, 
     		  int32 blk) {
-	//enable a step
-	adcinittt();
-	//TODO : make this pin configurable
-	//setting the first bit to one
-	*(uint32*)ADC_STEPENABLE |= (0b1)<< 1;
-	//print the output
-	kprintf("FIFO Out 0 before :  %d\n", *(uint32*)ADC_FIFO0DATA);
-	kprintf("FIFO Out 1 before :  %d\n", *(uint32*)ADC_FIFO1DATA);
+	adc_init();
+	int refvol_const = 1800;
+	*(uint32*)ADC_STEPENABLE |= 0x04;
+	
+	kprintf("FIFO0 Count before loop :  %d\n", *(uint32*)FIFO0COUNT);
 	while(!(*(uint32*)FIFO0COUNT & FIFO_COUNT_MASK)){}
+	kprintf("FIFO0 Count after loop :  %d\n", *(uint32*)FIFO0COUNT);
 	int32 val = *(uint32 *)ADC_FIFO0DATA & ADC_FIFO_MASK;
-
-	kprintf("Data output val :%d\n", val);
-	kprintf("Data output val converted :%f\n", val*1.8/4095.0);
-	return 1;
+	float voltage_reading = (val*refvol_const)/4095;	
+	kprintf("Pin reading value :%d\n", val);
+	return (int32)voltage_reading;
 }
