@@ -263,17 +263,17 @@ uint32	getlocalip(void)
 		NetData.ipvalid = TRUE;
 		udp_release(slot);
 
-		/* Retrieve the boot server IP */
-		if (dot2ip((char*)dmsg_rvc.sname,
-					    &NetData.bootserver) != OK) {
+		/* Retrieve the boot server IP || commenting this if block since a line here gives Panic error - Deep */
+		/*if (dot2ip((char*)dmsg_rvc.sname,
+					    &NetData.bootserver) != OK) {	*/
 			/* Could not retrieve the boot server from	*/
 			/*  the  BOOTP fields, so use the DHCP server	*/
 			/*  address					*/
-			tmp_server_ip = (uint32*)dhcp_get_opt_val(
+			/*tmp_server_ip = (uint32*)dhcp_get_opt_val(
 					&dmsg_rvc, len, DHCP_SERVER_ID);
-			memcpy((char *)&tmp, tmp_server_ip, 4);
+			memcpy((char *)&tmp, tmp_server_ip, 4);	//this gives Panic error
 			NetData.bootserver = ntohl(tmp);
-		}
+		}*/
 		memcpy(NetData.bootfile, dmsg_rvc.bootfile,
 					     sizeof(dmsg_rvc.bootfile));
 		return NetData.ipucast;
