@@ -10,7 +10,7 @@ count = 2
 while count > 0 :
     print("Listening ....")
     rec_msg, addr = s.recvfrom(1024)     # Establish connection with client.
-    global_dict.set(addr, rec_msg)
+    global_dict.__setitem__(addr, rec_msg)
     pickle.dump(global_dict, open("save.p", "wb"))
     print 'registration successful.. for the addr : ', addr, ' recieve msg ...', rec_msg
     count -= 1

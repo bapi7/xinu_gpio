@@ -86,7 +86,7 @@ uid32 firstCallToEdgeServer(){
 		return SYSERR;
 	}
 	// udp_send(udpslotClient,str,strlen(str));
-	udp_send(udpslotClient,"analog",strlen(str));
+	udp_send(udpslotClient,"analog",strlen("analog"));
 	return udpslotClient;
 }
 
