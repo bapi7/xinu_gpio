@@ -1,5 +1,5 @@
 /* GPIO memory-mapped I/O address */
-#define GPIO1 0x4804C134 //# gpio 1
+#define GPIO1 0x4804C000 //# gpio 1
 
 #define GPIO1_OUTPUT_ENABLE (GPIO1+0x134)
 #define GPIO1_DATA_IN (GPIO1+0x138)
