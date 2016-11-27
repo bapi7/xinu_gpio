@@ -1,0 +1,15 @@
+{
+  "devices" : [
+    {
+      "name" : "temp Sensor",
+      "pins" : [
+        {
+          "id" : "AIN0",
+          "index" : 11,
+          "mode" : "in",
+          "level" : "low",
+          "type" : "adc"
+        }]
+    }
+  ]
+}

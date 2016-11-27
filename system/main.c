@@ -9,11 +9,11 @@ int32	inlen,outlen;			/* Length of data received & data sent	*/
 
 pid32 led,temp;
 
-process ledon() {
+/*process ledon() {
     char buffer[10] = "";
     write(GPIO, buffer, 10);
     return OK;
-}
+}*/
 
 uint32 getIP_int(char* ip){
 	/* The return value. */ 
@@ -111,7 +111,7 @@ int32 tempread() {
 	// int32 count = 20;
 	// while(count > 0){
         kprintf("Starting reading sensor data \n---------------------------------\n");
-        voltage_reading = read(ADC, sensor_pin, 10);
+        voltage_reading = pread(11);
         kprintf("Voltage value read(in millivolts): %d\n",voltage_reading);
         temp_c = (voltage_reading - 500) / 10;
         temp_f = (temp_c * 9/5) + 32;

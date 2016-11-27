@@ -19,5 +19,3 @@ while True:
         s.close()
     # print('Got connection',addr)
     # s.sendto(b"Thank you for connecting",addr)
-    
-

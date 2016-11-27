@@ -25,19 +25,20 @@ null:
 		-w ionull	-s ioerr
 
 /* type of a gpio device */
-gpio:
+/*gpio:
 	on gpio
 		-i gpioinit	-o ionull	-c ionull
 		-r ionull	-g ionull	-p ionull
 		-w gpiowrite	-s ioerr
-
+*/
 /* type of a gpio device */
+/*
 adc:
         on adc
                 -i adcinit     -o ionull       -c ionull
                 -r adcread     -g ionull       -p ionull
                 -w ionull      -s ioerr
-
+*/
 /* type of a tty device */
 tty:
 	on uart
@@ -174,9 +175,9 @@ spi:
    SPI0 is spi on top csr 0x48030000
    SPI1 is spi on top csr 0x481A0000
 
-   GPIO is gpio on gpio csr 0x4804C134 
+/*   GPIO is gpio on gpio csr 0x4804C134  
 
-   ADC is adc on adc csr 0x44E0D044
+   ADC is adc on adc csr 0x44E0D044*/
 %%
 
 /* Configuration and Size Constants */

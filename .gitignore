@@ -1,3 +1,4 @@
+.idea/
 compile/binaries/*
 compile/.defs
 compile/.vers_num

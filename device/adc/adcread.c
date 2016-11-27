@@ -47,9 +47,7 @@ void adc_init(){
 	*ctrlptr |= 0x01;
 }
 
-devcall adcread(struct dentry *devptr,
-    		  char *buff, 
-    		  int32 blk) {
+devcall adc_read(int32 blk) {
 	adc_init();
 	int refvol_const = 1800;
 	*(uint32*)ADC_STEPENABLE |= 0x04;
