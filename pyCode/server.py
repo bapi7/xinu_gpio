@@ -1,5 +1,4 @@
-import socket               # Import socket module
-
+import socket
 s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)         # Create a socket object
 host = "192.168.0.11" # Get local machine name
 
@@ -19,3 +18,4 @@ while True:
         s.close()
     # print('Got connection',addr)
     # s.sendto(b"Thank you for connecting",addr)
+

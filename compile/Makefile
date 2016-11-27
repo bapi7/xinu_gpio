@@ -1,4 +1,4 @@
-#########################################################################
+
 #									#
 #									#
 #  Makefile for Beaglebone Black version of the Xinu operating system	#
@@ -92,6 +92,9 @@ CONFPGM		= $(TOPDIR)/config/config
 CONFL		= $(TOPDIR)/config/config.l
 CONFY		= $(TOPDIR)/config/config.y
 
+# DDL configuration file
+DDL 		= $(TOPDIR)/pyCode/ddl.json
+PYTHON		= $(which python)
 # Set up the required build directory structure
 
 BLDDIRS	= binaries
@@ -101,7 +104,7 @@ export
 # Specific additional rules and exceptions
 #--------------------------------------------------------------------------------
 
-xinu:	Makefile rebuild $(BLDDIRS) $(DEFSFILE) $(DEPSFILE) $(CONFH) $(CONFC) $(LD_LIST)
+xinu:	Makefile ddlgen rebuild $(BLDDIRS) $(DEFSFILE) $(DEPSFILE) $(CONFH) $(CONFC) $(LD_LIST)
 	@echo;echo 'Loading object files to produce xinu'
 	@$(LD) $(LDFLAGS) $(LD_LIST) -o $(XINU) -L../cross_compiler/lib/gcc/arm-none-eabi/4.8.1/ -lgcc
 	@$(OBJCOPY) -O binary $(XINU) $(XINUBIN)
@@ -153,6 +156,10 @@ $(DEPSFILE):
 	@rm -f $(DEPSFILE)
 	@echo "" > $(DEPSFILE)
 	@make depend
+
+ddlgen : $(DDL) $(TOPDIR)/pyCode/ddl-generator.py
+	@echo;echo 'running python ddl generator --> pio.c'
+	python $(TOPDIR)/pyCode/ddl-generator.py $(TOPDIR)/pyCode/ $(TOPDIR)/system/
 
 rebuild: $(CONFC)
 	@echo Rebuilding the $(DEFSFILE) file

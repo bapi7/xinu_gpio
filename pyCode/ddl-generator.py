@@ -1,4 +1,8 @@
-import json
+import json, sys
+
+dir = sys.argv[-2]
+outputDir = sys.argv[-1]
+
 from pprint import pprint
 
 arr = [
@@ -33,7 +37,7 @@ def writeOut(out_file, out_list, arg, isData):
 def generateIO():
     tabC = 0
     prevLine = None
-    filename = "pio.c"
+    filename = outputDir+"pio.c"
     with open(filename, "w") as f :
         for line in arr :
             if line.endswith("{"):
@@ -52,19 +56,19 @@ def generateIO():
     return filename
 
 
-def merge(base, inn, out):
+def merge(base, inn, out, infilestr, outfilestr):
     final_lines = []
     with open(base, "r") as f :
         lines = f.readlines()
     for line in lines :
-        if inn in line:
+        if infilestr in line:
             tc = line.count("\t")
             with open(inn, "r") as innfile  :
                 inlines = innfile.readlines()
                 innfile.close()
             final_lines.extend([''.join(["\t"] * tc)+i for i in inlines])
             continue
-        if out in line:
+        if outfilestr in line:
             tc = line.count("\t")
             with open(out, "r") as innfile:
                 inlines = innfile.readlines()
@@ -99,8 +103,8 @@ def generateDDLfull(filename):
     # print "outL : ", out_list
     # print "inL : ", in_list
     # pprint(dict(data))
-    in_file = "ddl_io_in.inc"
-    out_file = "ddl_io_out.inc"
+    in_file = dir+"ddl_io_in.inc"
+    out_file = dir+"ddl_io_out.inc"
 
     writeOut(out_file, out_list, "_write",True)
     writeOut(in_file, in_list, "_read", False)
@@ -111,6 +115,6 @@ def generateDDLfull(filename):
 
 
 base_filename = generateIO()
-input_output_list = generateDDLfull("ddl.json")
-merge(base_filename, input_output_list[0], input_output_list[1])
+input_output_list = generateDDLfull(dir+ "ddl.json")
+merge(base_filename, input_output_list[0], input_output_list[1], "ddl_io_in.inc", "ddl_io_out.inc")
 
