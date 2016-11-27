@@ -58,4 +58,4 @@ def get_data(deviceid):
 if __name__ == '__main__':
     if s is None :
         s = register()
-    app.run(debug=True)
+    app.run(debug=True, use_reloader=False)
