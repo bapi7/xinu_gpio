@@ -1,6 +1,17 @@
 {
   "devices" : [
     {
+      "name" : "led actions",
+      "pins" : [
+        {
+          "id" : "led1",
+          "index" : 7,
+          "mode" : "out",
+          "level" : "high",
+          "type" : "gpio"
+        }]
+    },
+    {
       "name" : "temp Sensor",
       "pins" : [
         {

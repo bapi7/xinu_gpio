@@ -1,0 +1,37 @@
+{
+      "name": "LED_rgb",
+      "pins" : [
+        {
+          "id" : "gnd_r",
+          "index": 0,
+          "mode" : "out",
+          "level" : "high",
+          "type" : "gpio"
+        },
+        {
+          "id" : "gnd_g",
+          "index": 1,
+          "mode" : "out",
+          "level" : "high",
+          "type" : "gpio"
+        },
+        {
+          "id" : "gnd_b",
+          "index": 3,
+          "mode" : "out",
+          "level" : "high",
+          "type" : "gpio"
+        }
+      ]
+    },
+    {
+      "name" : "button",
+      "pins" : [
+        {
+          "id" : "sense",
+          "index" : 7,
+          "mode" : "in",
+          "level" : "low",
+          "type" : "gpio"
+        }]
+    },

@@ -12,6 +12,9 @@ int32 pread(int32 dev_id){
 int32 pwrite(int32 dev_id, int32 data){
 	switch (dev_id)
 	{
+		case 7 : 
+			gpio_write(7, data);
+			break;
 		default:
 			break;
 	}

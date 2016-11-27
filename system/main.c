@@ -121,6 +121,13 @@ int32 tempread() {
 	return temp_c;
 }
 
+void triggerled(){
+	pwrite(7, 1); // led on
+	sleep(2);
+	pwrite(7,0);
+	return;
+}
+
 process producer(void){
 	
 	// char*  msg;
@@ -156,7 +163,10 @@ process producer(void){
 				kprintf("Temp value read... : %d\n", temp_value);
 				udp_send(udpslotClient,temp_value_str,strlen(temp_value_str));
 				break;
-
+			case 6061 : 
+				triggerled();
+				kprintf("led is flickering...\n");
+				break;
 		} 
 	}
 
