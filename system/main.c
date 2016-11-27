@@ -85,7 +85,8 @@ uid32 firstCallToEdgeServer(){
 		kprintf("Cannot register with UDP\n");
 		return SYSERR;
 	}
-	udp_send(udpslotClient,str,strlen(str));
+	// udp_send(udpslotClient,str,strlen(str));
+	udp_send(udpslotClient,"analog",strlen(str));
 	return udpslotClient;
 }
 

@@ -1,7 +1,6 @@
-#!flask/bin/python
 from flask import Flask, jsonify
 from flask import abort
-import socket
+import socket, pickle
 
 app = Flask(__name__)
 
@@ -15,6 +14,11 @@ def register():
     print("Listening ....")
     rec_msg, addr = s.recvfrom(1024)  # Establish connection with client.
     return addr
+
+@app.route('/devices/', methods=['GET'])
+def getDevices():
+    addrs = pickle.load(open("save.p", "rb"))
+    return jsonify(addrs)
 
 @app.route('/status', methods=['GET'])
 def get_data():
