@@ -48,6 +48,7 @@ void adc_init(){
 }
 
 devcall adc_read(int32 blk) {
+	kprintf("debug  %d\n",DEBUG);
 	adc_init();
 	int refvol_const = 1800;
 	*(uint32*)ADC_STEPENABLE |= 0x04;

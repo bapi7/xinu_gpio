@@ -156,7 +156,7 @@ uint32	getlocalip(void)
 	uint32	dnsaddr;		/* DNS server address		*/
 	uint32	ntpaddr;		/* NTP server address		*/
 	uint32	tmp;			/* Used for byte conversion	*/
-	uint32* tmp_server_ip;		/* Temporary DHCP server pointer*/
+	// uint32* tmp_server_ip;		/* Temporary DHCP server pointer*/
 
 	slot = udp_register(0, UDP_DHCP_SPORT, UDP_DHCP_CPORT);
 	if (slot == SYSERR) {

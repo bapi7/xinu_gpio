@@ -37,4 +37,4 @@ struct  adc_csreg
 #define ADC_FIFO_MASK (0xFFF)
 
 // set this to true to print hte debug statements
-#define DEBUG 0
+#define DEBUG 1

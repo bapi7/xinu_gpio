@@ -2,9 +2,41 @@ from flask import Flask, jsonify
 from flask import abort
 import socket, pickle
 
+
+import pygal
+from flask import render_template
+from datetime import datetime
+from pygal.style import TurquoiseStyle
+
+
 app = Flask(__name__)
 addrs = {}
 devices = {}
+
+
+def renderGraph(rec_msg):
+    FORMAT = '%H:%M'
+    file = open("list.txt", "a")
+    file.write(str(rec_msg) + " " + str(datetime.now().strftime(FORMAT)) + "\n")
+    file.close()
+
+    x, y = [], []
+    with open('list.txt') as f:
+        for l in f:
+            row = l.split()
+            x.append(row[0])
+            y.append(row[1])
+    t = [int(numeric_string) for numeric_string in x]
+    try:
+        graph = pygal.StackedLine(fill=True, interpolate='cubic', style=TurquoiseStyle)
+        graph.title = '% Change Coolness of programming languages over time.'
+        graph.x_labels = y
+
+        graph.add('temperature', t)
+        graph_data = graph.render_data_uri()
+        return graph.render_response()
+    except Exception, e:
+        return (str(e))
 
 
 def register():
@@ -46,7 +78,9 @@ def get_data(deviceid):
             s.sendto(b"6060", (devices.get("analog"), 7770))
             rec_msg, addr = s.recvfrom(1024)
             print 'Temperature sensor Data', rec_msg
-            return rec_msg
+            return renderGraph(rec_msg)
+            # return rec_msg
+
         elif "digital" in deviceid :
             print 'led is switching on...'
             print 'sentto  : ', b"6061"

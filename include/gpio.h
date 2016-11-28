@@ -1,17 +1,4 @@
-/* GPIO memory-mapped I/O address */
-#define GPIO1 0x4804C000 //# gpio 1
-
-#define GPIO1_OUTPUT_ENABLE (GPIO1+0x134)
-#define GPIO1_DATA_IN (GPIO1+0x138)
-#define GPIO1_DATA_OUT (GPIO1+0x13C)
-
-struct  gpio_csreg
-{
-        //volatile uint32 extra[15];
-	volatile uint32 oer;
-	volatile uint32 data_in;
-	volatile uint32 data_out;
-	//volatile uint32 end[6];
-	//volatile uint32 cleardataout;
-	//volatile uint32 setdataout;
-};
+#define GPIO 0x4804C000
+#define GPIO_DATA_IN (GPIO+0x138)
+#define GPIO_DATA_OUT (GPIO+0x13C)
+#define GPIO_OUTPUT_ENABLE (GPIO+0x134)

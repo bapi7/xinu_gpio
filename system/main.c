@@ -86,7 +86,7 @@ uid32 firstCallToEdgeServer(){
 		return SYSERR;
 	}
 	// udp_send(udpslotClient,str,strlen(str));
-	udp_send(udpslotClient,"digital",strlen("digital"));
+	udp_send(udpslotClient,"analog",strlen("analog"));
 	return udpslotClient;
 }
 
@@ -112,7 +112,7 @@ int32 tempread() {
 	// int32 count = 20;
 	// while(count > 0){
         kprintf("Starting reading sensor data \n---------------------------------\n");
-        voltage_reading = pread(11);
+        voltage_reading = pread(TEMPSENSOR);
         kprintf("Voltage value read(in millivolts): %d\n",voltage_reading);
         temp_c = (voltage_reading - 500) / 10;
         temp_f = (temp_c * 9/5) + 32;
