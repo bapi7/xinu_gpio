@@ -23,6 +23,11 @@
         }]
     }
   ],
+  "AnalogInputs" : {
+    "AIN0" : 4,
+    "AIN1" : 4
+  },
+
   "header" : {
     "P9" : {
       "PINS" :{

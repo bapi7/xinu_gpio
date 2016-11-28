@@ -86,7 +86,10 @@ uid32 firstCallToEdgeServer(){
 		return SYSERR;
 	}
 	// udp_send(udpslotClient,str,strlen(str));
+	int32 mode = 1; // mode 1 is analog
 	udp_send(udpslotClient,"analog",strlen("analog"));
+	if(mode == 1)
+		adcinit(); 
 	return udpslotClient;
 }
 
@@ -105,14 +108,14 @@ int32 getMsgInt(char* msg){
 }
 
 
-int32 tempread() {
+int32 tempread(int32 devid) {
 	char * sensor_pin;
 	int32 temp_c, temp_f, voltage_reading;
 	sensor_pin = "P9_39";
 	// int32 count = 20;
 	// while(count > 0){
         kprintf("Starting reading sensor data \n---------------------------------\n");
-        voltage_reading = pread(TEMPSENSOR);
+        voltage_reading = pread(devid);
         kprintf("Voltage value read(in millivolts): %d\n",voltage_reading);
         temp_c = (voltage_reading - 500) / 10;
         temp_f = (temp_c * 9/5) + 32;
@@ -159,7 +162,7 @@ process producer(void){
 		kprintf(" int value of msg %d\n", replymsg_int);
 		switch(replymsg_int){
 			case 6060:
-				temp_value = tempread();
+				temp_value = tempread(TEMPSENSOR);
 				sprintf(temp_value_str , "%d", temp_value);
 				kprintf("Temp value read... : %d\n", temp_value);
 				udp_send(udpslotClient,temp_value_str,strlen(temp_value_str));

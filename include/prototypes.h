@@ -557,13 +557,13 @@ extern	devcall	ttyread(struct dentry *, char *, int32);
 /* in file ttywrite.c */
 extern	devcall	ttywrite(struct dentry *, char *, int32);
 
-extern devcall gpiowrite(struct dentry *, char *, int32);
+// extern devcall gpiowrite(struct dentry *, char *, int32);
 
-extern devcall gpioinit(struct dentry *);
+// extern devcall gpioinit(struct dentry *);
 
-extern devcall adcread(struct dentry *, char *, int32);
+// extern devcall adcread(struct dentry *, char *, int32);
 
-extern devcall adcinit(struct dentry *);
+// extern devcall adcinit(struct dentry *);
 
 /* in file udp.c */
 

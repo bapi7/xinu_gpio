@@ -49,9 +49,10 @@ void adc_init(){
 
 devcall adc_read(int32 blk) {
 	kprintf("debug  %d\n",DEBUG);
-	adc_init();
+	// adc_init();
+	if(DEBUG == 1) kprintf("ADC STEPENABLE : %d\n", *(uint32 *)ADC_STEPENABLE);
 	int refvol_const = 1800;
-	*(uint32*)ADC_STEPENABLE |= 0x04;
+	*(uint32*)ADC_STEPENABLE |= blk;
 	
 	kprintf("FIFO0 Count before loop :  %d\n", *(uint32*)FIFO0COUNT);
 	while(!(*(uint32*)FIFO0COUNT & FIFO_COUNT_MASK)){}

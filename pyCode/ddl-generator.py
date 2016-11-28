@@ -27,15 +27,14 @@ arr = [
     "}"]
 
 def getPinNo(jobj, filename):
+    with open(filename) as data_file:
+        data = dict(json.load(data_file))
     if jobj["type"] == "gpio":
-
         id = jobj["id"]
-        with open(filename) as data_file:
-            data = dict(json.load(data_file))
         pinno = data["header"][id.split("_")[0]]["PINS"][id]["pinno"]
         return pinno
-    else :
-        return jobj["index"]
+    elif jobj["type"] == "adc":
+        return data["AnalogInputs"][jobj["id"]]
 
 def writeOut(out_file, out_list, arg, isData, filename):
     data = ", data" if isData else ""
