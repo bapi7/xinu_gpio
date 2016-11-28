@@ -22,14 +22,14 @@ def renderGraph(rec_msg):
 
     x, y = [], []
     with open('list.txt') as f:
-        for l in f:
+    for l in f:
             row = l.split()
             x.append(row[0])
             y.append(row[1])
     t = [int(numeric_string) for numeric_string in x]
     try:
         graph = pygal.StackedLine(fill=True, interpolate='cubic', style=TurquoiseStyle)
-        graph.title = '% Change Coolness of programming languages over time.'
+        graph.title = 'Temperature in Celsius'
         graph.x_labels = y
 
         graph.add('temperature', t)
