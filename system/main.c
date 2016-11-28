@@ -86,7 +86,7 @@ uid32 firstCallToEdgeServer(){
 		return SYSERR;
 	}
 	// udp_send(udpslotClient,str,strlen(str));
-	udp_send(udpslotClient,"analog",strlen("analog"));
+	udp_send(udpslotClient,"digital",strlen("digital"));
 	return udpslotClient;
 }
 
@@ -123,9 +123,9 @@ int32 tempread() {
 }
 
 void triggerled(){
-	pwrite(7, 1); // led on
+	pwrite(LED, 1); // led on
 	sleep(2);
-	pwrite(7,0);
+	pwrite(LED,0);
 	return;
 }
 

@@ -1,3 +1,3 @@
-case 7 : 
-	gpio_write(7, data);
+case 0 : 
+	gpio_write(28, data);
 	break;

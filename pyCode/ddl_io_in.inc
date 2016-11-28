@@ -1,3 +1,3 @@
-case 11 : 
+case 1 : 
 	return adc_read(11);
 	break;

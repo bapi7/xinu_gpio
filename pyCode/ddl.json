@@ -1,18 +1,18 @@
 {
   "devices" : [
     {
-      "name" : "led actions",
+      "name" : "LED",
       "pins" : [
         {
-          "id" : "led1",
-          "index" : 7,
+          "id" : "P9_15",
+          "index" : 24,
           "mode" : "out",
           "level" : "high",
           "type" : "gpio"
         }]
     },
     {
-      "name" : "temp Sensor",
+      "name" : "TEMPSENSOR",
       "pins" : [
         {
           "id" : "AIN0",
@@ -22,5 +22,56 @@
           "type" : "adc"
         }]
     }
-  ]
+  ],
+  "header" : {
+    "P9" : {
+      "PINS" :{
+        "P9_12" : {
+          "Name" : "GPIO1_28",
+          "base" : "GPIO1",
+          "pinno" : 28
+        },
+        "P9_15" :  {
+          "name" : "GPIO1_16",
+          "base" : "GPIO1",
+          "pinno" : 16
+        }
+      }
+    },
+    "P8" : {
+      "PINS" : {
+        "P8_45" : {
+          "name" : "GPIO2_6",
+          "base" : "GPIO2",
+          "pinno" : 6
+        }
+      }
+    }
+  },
+  "baseheader" : {
+    "GPIO0" : {
+      "GPIO" : "0x44E07000",
+      "GPIO_OUTPUT_ENABLE" : "(GPIO+0x134)",
+      "GPIO_DATA_IN" : "(GPIO+0x138)",
+      "GPIO_DATA_OUT" : "(GPIO+0x13C)"
+    },
+    "GPIO1" : {
+      "GPIO" : "0x4804C000",
+      "GPIO_OUTPUT_ENABLE" : "(GPIO+0x134)",
+      "GPIO_DATA_IN" : "(GPIO+0x138)",
+      "GPIO_DATA_OUT" : "(GPIO+0x13C)"
+    },
+    "GPIO2" : {
+      "GPIO" : "0x481AC000",
+      "GPIO_OUTPUT_ENABLE" : "(GPIO+0x134)",
+      "GPIO_DATA_IN" : "(GPIO+0x138)",
+      "GPIO_DATA_OUT" : "(GPIO+0x13C)"
+    },
+    "GPIO3" : {
+      "GPIO" : "0x481AE000",
+      "GPIO_OUTPUT_ENABLE" : "(GPIO+0x134)",
+      "GPIO_DATA_IN" : "(GPIO+0x138)",
+      "GPIO_DATA_OUT" : "(GPIO+0x13C)"
+    }
+  }
 }

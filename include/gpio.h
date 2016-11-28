@@ -4,8 +4,6 @@
 #define GPIO1_OUTPUT_ENABLE (GPIO1+0x134)
 #define GPIO1_DATA_IN (GPIO1+0x138)
 #define GPIO1_DATA_OUT (GPIO1+0x13C)
-//#define GPIO1_DATA_OUT 0x4804c13c
-//#define GPIO1_DIR_OUT  0x4804c134
 
 struct  gpio_csreg
 {

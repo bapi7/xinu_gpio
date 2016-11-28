@@ -159,7 +159,7 @@ $(DEPSFILE):
 
 ddlgen : $(DDL) $(TOPDIR)/pyCode/ddl-generator.py
 	@echo;echo 'running python ddl generator --> pio.c'
-	python $(TOPDIR)/pyCode/ddl-generator.py $(TOPDIR)/pyCode/ $(TOPDIR)/system/
+	python $(TOPDIR)/pyCode/ddl-generator.py $(TOPDIR)/pyCode/ $(TOPDIR)/system/ $(TOPDIR)/include/
 
 rebuild: $(CONFC)
 	@echo Rebuilding the $(DEFSFILE) file

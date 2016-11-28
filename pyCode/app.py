@@ -15,7 +15,7 @@ def register():
     s.bind((host, port))  # Bind to the port
 
     # global_dict = {}
-    count = 2
+    count = 1
     while count > 0:
         print("Listening ....")
         rec_msg, addr = s.recvfrom(1024)  # Establish connection with client.
@@ -51,6 +51,7 @@ def get_data(deviceid):
             print 'led is switching on...'
             print 'sentto  : ', b"6061"
             s.sendto(b"6061", (devices.get("digital"),7770))
+            return 'Checkout LED :)'
     elif deviceid is 'end':
         return "nothing"
         s.close()
