@@ -1,0 +1,14 @@
+(dp0
+(S'192.168.0.29'
+p1
+I7770
+tp2
+S'digital\x00Star'
+p3
+s(S'192.168.0.26'
+p4
+I7770
+tp5
+S'analog\x00\x00Star'
+p6
+s.
