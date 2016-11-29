@@ -9,7 +9,6 @@ from flask import render_template
 from datetime import datetime
 from pygal.style import TurquoiseStyle
 
-
 app = Flask(__name__)
 analog_addrs = {}
 digital_addrs = {}
@@ -75,9 +74,7 @@ s = None
 
 @app.route('/devices/', methods=['GET'])
 def getDevices():
-    # addrs = pickle.load(open("save.p", "rb"))
-    #return json2html.convert(json = jsonify(dict(addrs)),table_attributes="style=\"background-color:green\"")
-    return jsonify(dict(addrs))
+    return render_template("test.html",devices = addrs)
 
 @app.route('/sensorstatus/<deviceid>/', methods=['GET'])
 def get_data(deviceid):
