@@ -1,11 +1,13 @@
 from flask import Flask, jsonify
 from flask import abort
 from json2html import *
-import socket, pickle
-
+import socket, pickle, random
+import time
 
 import pygal
 from flask import render_template
+from flask_restful import Resource, Api
+
 from datetime import datetime
 from pygal.style import TurquoiseStyle
 
@@ -15,20 +17,8 @@ digital_addrs = {}
 addrs = []
 devices = {}
 
-
-def renderGraph(rec_msg):
-    FORMAT = '%H:%M'
-    file = open("list.txt", "a")
-    file.write(str(rec_msg) + " " + str(datetime.now().strftime(FORMAT)) + "\n")
-    file.close()
-
-    x, y = [], []
-    with open('list.txt') as f:
-        for l in f:
-            row = l.split()
-            x.append(row[0])
-            y.append(row[1])
-    t = [int(numeric_string) for numeric_string in x]
+def renderUI(t,y):
+    t = [int(numeric_string) for numeric_string in t]
     try:
         graph = pygal.StackedLine(fill=True, interpolate='cubic', style=TurquoiseStyle)
         graph.title = 'Temperature in Celsius'
@@ -39,6 +29,21 @@ def renderGraph(rec_msg):
         return graph.render_response()
     except Exception, e:
         return (str(e))
+
+def renderGraph(rec_msg):
+    FORMAT = '%H:%M'
+    file = open("list.txt", "a")
+    file.write(str(rec_msg) + " " + str(datetime.now().strftime(FORMAT)) + "\n")
+    file.close()
+
+    x, y = [], []
+    with open('list.txt') as f:
+        for l in f:
+            rowx, rowy = l.split()
+            x.append(rowx)
+            y.append(rowy)
+    t = [int(numeric_string) for numeric_string in x]
+    return renderUI(t,y)
 
 
 def register():
@@ -76,6 +81,23 @@ s = None
 def getDevices():
     return render_template("test.html",devices = addrs)
 
+@app.route('/devices/interval/<timee>', methods=['GET'])
+def getDataInInterval(timee) :
+    count = int(timee)
+    arr = []
+    while(count > 0 ):
+        s.sendto(b"6060", (devices.get("analog"), 7770))
+        rec_msg, addr = s.recvfrom(1024)
+        # rec_msg = random.randint(50,100)
+        arr.append(str(rec_msg)+ " " + str(datetime.now().strftime("%H:%M:%S")))
+        time.sleep(1)
+        print arr, count
+        count -= 1
+    arrs = [i.split() for i in arr]
+    t = [int(i[0].strip()) for i in arrs]
+    y = [i[1].strip() for i in arrs]
+    return renderUI(t, y)
+
 @app.route('/sensorstatus/<deviceid>/', methods=['GET'])
 def get_data(deviceid):
     # print(rec_msg)
@@ -93,11 +115,14 @@ def get_data(deviceid):
             print 'sentto  : ', b"6061"
             s.sendto(b"6061", (devices.get("digital"),7770))
             return 'Checkout LED :)'
+        elif "interval" in deviceid :
+            print 'interval found'
     elif deviceid is 'end':
         return "nothing"
         s.close()
 
+
 if __name__ == '__main__':
-    if s is None :
-        s = register()
+    # if s is None :
+        # s = register()
     app.run(debug=True, use_reloader=False)
