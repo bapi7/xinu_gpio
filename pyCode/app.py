@@ -1,5 +1,6 @@
 from flask import Flask, jsonify
 from flask import abort
+from json2html import *
 import socket, pickle
 
 
@@ -10,7 +11,9 @@ from pygal.style import TurquoiseStyle
 
 
 app = Flask(__name__)
-addrs = {}
+analog_addrs = {}
+digital_addrs = {}
+addrs = []
 devices = {}
 
 
@@ -22,7 +25,7 @@ def renderGraph(rec_msg):
 
     x, y = [], []
     with open('list.txt') as f:
-    for l in f:
+        for l in f:
             row = l.split()
             x.append(row[0])
             y.append(row[1])
@@ -41,7 +44,7 @@ def renderGraph(rec_msg):
 
 def register():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # Create a socket object
-    host = "192.168.0.11"  # Get local machine name
+    host = "192.168.0.102"  # Get local machine name
 
     port = 7778  # Reserve a port for your service.
     s.bind((host, port))  # Bind to the port
@@ -54,10 +57,16 @@ def register():
         # pickle.dump(global_dict, open("save.p", "wb"))
         if "analog" in rec_msg :
             devices.__setitem__("analog", addr[0])
-            addrs.__setitem__(addr[0], "analog")
+            analog_addrs.__setitem__("Device", addr[0])
+            analog_addrs.__setitem__("Sensor", "Temperature Sensor")
+            analog_addrs.__setitem__("Sensor Type", "analog")
+            addrs.append(analog_addrs)
         else :
             devices.__setitem__("digital", addr[0])
-            addrs.__setitem__(addr[0], "digital")
+            digital_addrs.__setitem__("Device", addr[0])
+            digital_addrs.__setitem__("Sensor", "LED")
+            digital_addrs.__setitem__("Sensor Type", "digital")
+            addrs.append(digital_addrs)
         print 'registration successful.. for the addr : ', addr, ' recieve msg ...', rec_msg
         count -= 1
     return s
@@ -67,9 +76,10 @@ s = None
 @app.route('/devices/', methods=['GET'])
 def getDevices():
     # addrs = pickle.load(open("save.p", "rb"))
+    #return json2html.convert(json = jsonify(dict(addrs)),table_attributes="style=\"background-color:green\"")
     return jsonify(dict(addrs))
 
-@app.route('/device/<deviceid>', methods=['GET'])
+@app.route('/sensorstatus/<deviceid>/', methods=['GET'])
 def get_data(deviceid):
     # print(rec_msg)
     if deviceid is not None:

@@ -76,7 +76,7 @@ uid32 firstCallToEdgeServer(){
 								ipaddr);
 	}
 	
-	char * ip = "192.168.0.11";		//IP of Edge socket server
+	char * ip = "192.168.0.102";		//IP of Edge socket server
 	
 	uint32 remIp_int = getIP_int(ip);
     
@@ -138,7 +138,7 @@ process producer(void){
 	char*  replymsg;
 	char* temp_value_str ;
 	int32 replymsg_int ;
-	temp_value_str = "6061"; 
+	temp_value_str = "6060"; 
 	uid32 udpslotClient = firstCallToEdgeServer();
 	replymsg = "-1";
 	// replymsg = "No message from Server";
