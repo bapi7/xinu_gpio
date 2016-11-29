@@ -76,7 +76,7 @@ uid32 firstCallToEdgeServer(){
 								ipaddr);
 	}
 	
-	char * ip = "192.168.0.102";		//IP of Edge socket server
+	char * ip = "192.168.0.100";		//IP of Edge socket server
 	
 	uint32 remIp_int = getIP_int(ip);
     

@@ -48,7 +48,7 @@ def renderGraph(rec_msg):
 
 def register():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # Create a socket object
-    host = "192.168.0.102"  # Get local machine name
+    host = "192.168.0.100"  # Get local machine name
 
     port = 7778  # Reserve a port for your service.
     s.bind((host, port))  # Bind to the port
@@ -61,15 +61,15 @@ def register():
         # pickle.dump(global_dict, open("save.p", "wb"))
         if "analog" in rec_msg :
             devices.__setitem__("analog", addr[0])
-            analog_addrs.__setitem__("Device", addr[0])
-            analog_addrs.__setitem__("Sensor", "Temperature Sensor")
-            analog_addrs.__setitem__("Sensor Type", "analog")
+            analog_addrs.__setitem__("device", addr[0])
+            analog_addrs.__setitem__("sensor", "Temperature Sensor")
+            analog_addrs.__setitem__("sensor_type", "analog")
             addrs.append(analog_addrs)
         else :
             devices.__setitem__("digital", addr[0])
-            digital_addrs.__setitem__("Device", addr[0])
-            digital_addrs.__setitem__("Sensor", "LED")
-            digital_addrs.__setitem__("Sensor Type", "digital")
+            digital_addrs.__setitem__("device", addr[0])
+            digital_addrs.__setitem__("sensor", "LED")
+            digital_addrs.__setitem__("sensor_type", "digital")
             addrs.append(digital_addrs)
         print 'registration successful.. for the addr : ', addr, ' recieve msg ...', rec_msg
         count -= 1
@@ -123,6 +123,6 @@ def get_data(deviceid):
 
 
 if __name__ == '__main__':
-    # if s is None :
-        # s = register()
+    if s is None :
+        s = register()
     app.run(debug=True, use_reloader=False)
